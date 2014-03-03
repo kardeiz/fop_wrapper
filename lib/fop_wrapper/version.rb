@@ -1,0 +1,3 @@
+module FopWrapper
+  VERSION = "0.0.1"
+end
