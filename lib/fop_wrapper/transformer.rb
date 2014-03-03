@@ -24,7 +24,14 @@ module FopWrapper
     end
     
     def source
-      @source ||= javax.xml.transform.stream.StreamSource.new(@input)
+      @source ||= begin
+        if File.exists?(@input)
+          javax.xml.transform.stream.StreamSource.new(@input)
+        else
+          reader = java.io.StringReader.new(@input)
+          javax.xml.transform.stream.StreamSource.new(reader)
+        end
+      end
     end
     
     def transformer_factory
